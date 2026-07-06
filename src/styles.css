@@ -5,6 +5,7 @@
   --text: #eef1f9;
   --muted: #9aa3c0;
   --accent: #6c8cff;
+  --primary: #b81a6b;
   --up: #37d67a;
   --down: #ff6b6b;
 }
@@ -79,7 +80,7 @@ body {
 .forgot-link:hover { text-decoration: underline; }
 
 .btn-primary {
-  background: var(--accent);
+  background: var(--primary);
   color: white;
   border: none;
   padding: 11px 20px;
