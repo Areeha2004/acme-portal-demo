@@ -43,7 +43,8 @@ function Login({ onLogin }) {
         </label>
 
         <div className="login-actions">
-          <button type="submit" className="btn-primary">Sign in</button>
+          <button type="submit" className="btn-primary btn-block">Sign in</button>
+          <a className="forgot-link" href="#">Forgot password?</a>
         </div>
       </form>
     </div>
