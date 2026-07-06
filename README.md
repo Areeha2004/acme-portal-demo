@@ -15,3 +15,5 @@ npm run build   # outputs to dist/
 ```
 
 Deploys to Cloudflare Pages: build command `npm run build`, output directory `dist`.
+
+<!-- plumbing test: staging->main promotion -->
