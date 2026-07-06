@@ -120,7 +120,14 @@ body {
   gap: 16px;
   margin-top: 24px;
 }
-.stat { padding: 20px; }
+.stat {
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.2s ease;
+}
+.stat:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
 .stat-label { color: var(--muted); font-size: 13px; }
 .stat-value { font-size: 26px; font-weight: 700; margin: 6px 0; }
 .stat-delta.up { color: var(--up); font-size: 13px; }
