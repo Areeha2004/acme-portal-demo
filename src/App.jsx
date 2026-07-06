@@ -8,19 +8,41 @@ const STATS = [
 ];
 
 function Login({ onLogin }) {
+  const [mode, setMode] = useState('signin'); // 'signin' | 'signup'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const isSignup = mode === 'signup';
+
+  const switchMode = () => {
+    setMode(isSignup ? 'signin' : 'signup');
+    setError('');
+    setConfirmPassword('');
+  };
 
   const submit = (e) => {
     e.preventDefault();
-    if (email && password) onLogin(email);
+    setError('');
+
+    if (!email || !password) return;
+
+    if (isSignup && password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    onLogin(email);
   };
 
   return (
     <div className="login-wrap">
       <form className="card login-card" onSubmit={submit}>
         <div className="brand">Acme Portal</div>
-        <p className="muted">Sign in to your workspace</p>
+        <p className="muted">
+          {isSignup ? 'Create your workspace account' : 'Sign in to your workspace'}
+        </p>
 
         <label>
           Email
@@ -29,6 +51,7 @@ function Login({ onLogin }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@company.com"
+            autoComplete="email"
           />
         </label>
 
@@ -39,13 +62,45 @@ function Login({ onLogin }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
+            autoComplete={isSignup ? 'new-password' : 'current-password'}
           />
         </label>
 
+        {isSignup && (
+          <label>
+            Confirm password
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="••••••••"
+              autoComplete="new-password"
+            />
+          </label>
+        )}
+
+        {error && (
+          <p className="login-error" role="alert">{error}</p>
+        )}
+
         <div className="login-actions">
-          <button type="submit" className="btn-primary btn-block">Sign in</button>
-          <a className="forgot-link" href="#">Forgot password?</a>
+          <button type="submit" className="btn-primary btn-block">
+            {isSignup ? 'Create account' : 'Sign in'}
+          </button>
+          {!isSignup && (
+            <a className="forgot-link" href="#">Forgot password?</a>
+          )}
         </div>
+
+        <div className="login-divider"><span>or</span></div>
+
+        <button
+          type="button"
+          className="btn-secondary btn-block"
+          onClick={switchMode}
+        >
+          {isSignup ? 'Back to sign in' : 'Create account'}
+        </button>
       </form>
     </div>
   );
